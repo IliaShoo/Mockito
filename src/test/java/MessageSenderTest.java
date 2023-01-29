@@ -20,6 +20,8 @@ public class MessageSenderTest {
                 thenReturn("Добро пожаловать"));
 
         String excpected = "Добро пожаловать";
+
+        //тест не проходит
         Assertions.assertEquals(excpected, actual);
 
     }
