@@ -32,4 +32,10 @@ public class Location {
     public int getBuiling() {
         return builing;
     }
+
+    @Override
+    public String toString(){
+        return city + " " + country + " " + street + " " + builing;
+    }
+
 }

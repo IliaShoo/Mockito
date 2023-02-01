@@ -33,12 +33,25 @@ public class MessageSenderTest {
                 thenReturn(new Location("New York",Country.USA,"10th avenue",32));
 
         LocalizationServiceImpl localizationService = Mockito.mock(LocalizationServiceImpl.class);
+        //не понимаю как переписать это правильно.
         String actual = String.valueOf(Mockito.when(localizationService.locale(Country.USA)).
                 thenReturn("Welcome"));
 
         String excpected = "Welcome";
 
         Assertions.assertEquals(excpected, actual);
+    }
+
+    @Test
+    void LocationByIp(){
+        GeoServiceImpl geoService = new GeoServiceImpl();
+        String ip = "172.0.32.11";
+        Location excpected = new Location("Moscow",Country.RUSSIA,"Lenina", 15);
+        Location actual = geoService.byIp(ip);
+
+        Assertions.assertEquals(excpected.toString(),actual.toString());
+
+
     }
 
 }
