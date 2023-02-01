@@ -9,7 +9,7 @@ import ru.netology.i18n.LocalizationServiceImpl;
 public class MessageSenderTest {
 
     @Test
-    void sendTest() {
+    void sendTestRussian() {
 
         GeoServiceImpl geoService = Mockito.mock(GeoServiceImpl.class);
         Mockito.when(geoService.byIp("172.0.32.11")).
@@ -24,6 +24,21 @@ public class MessageSenderTest {
         //тест не проходит
         Assertions.assertEquals(excpected, actual);
 
+    }
+
+    @Test
+    void sendTestEnglish(){
+        GeoServiceImpl geoService = Mockito.mock(GeoServiceImpl.class);
+        Mockito.when(geoService.byIp("96.44.183.149")).
+                thenReturn(new Location("New York",Country.USA,"10th avenue",32));
+
+        LocalizationServiceImpl localizationService = Mockito.mock(LocalizationServiceImpl.class);
+        String actual = String.valueOf(Mockito.when(localizationService.locale(Country.USA)).
+                thenReturn("Welcome"));
+
+        String excpected = "Welcome";
+
+        Assertions.assertEquals(excpected, actual);
     }
 
 }
