@@ -33,9 +33,4 @@ public class Location {
         return builing;
     }
 
-    @Override
-    public String toString(){
-        return city + " " + country + " " + street + " " + builing;
-    }
-
 }

@@ -48,8 +48,8 @@ public class MessageSenderTest {
         String ip = "172.0.32.11";
         Location excpected = new Location("Moscow",Country.RUSSIA,"Lenina", 15);
         Location actual = geoService.byIp(ip);
-
-        Assertions.assertEquals(excpected.toString(),actual.toString());
+        //выдаёт ошибку. Не понимаю как исправить.
+        Assertions.assertEquals(excpected,actual);
 
 
     }
