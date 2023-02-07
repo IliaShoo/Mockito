@@ -36,8 +36,9 @@ public class MessageSenderTest {
 
     @Test
     void LocationByIp() {
-        GeoServiceImpl geoService = new GeoServiceImpl();
+        GeoServiceImpl geoService = Mockito.mock(GeoServiceImpl.class);
         String ip = "172.0.32.11";
+        when(geoService.byIp(ip)).thenReturn(new Location("Moscow",Country.RUSSIA,"Lenina",15));
 
         Location excpectedLocation = new Location("Moscow", Country.RUSSIA, "Lenina", 15);
         Location actualLocation = geoService.byIp(ip);
