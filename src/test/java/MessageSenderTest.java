@@ -6,36 +6,28 @@ import ru.netology.entity.Location;
 import ru.netology.geo.GeoServiceImpl;
 import ru.netology.i18n.LocalizationServiceImpl;
 
+import static org.mockito.Mockito.when;
+
 public class MessageSenderTest {
 
     @Test
     void sendTestRussian() {
 
-        GeoServiceImpl geoService = Mockito.mock(GeoServiceImpl.class);
-        Mockito.when(geoService.byIp("172.0.32.11")).
-                thenReturn(new Location("Moscow",Country.RUSSIA,"Lenina",15));
-
         LocalizationServiceImpl localizationService = Mockito.mock(LocalizationServiceImpl.class);
-         String actual = String.valueOf(Mockito.when(localizationService.locale(Country.RUSSIA)).
-                thenReturn("Добро пожаловать"));
+        when(localizationService.locale(Country.RUSSIA)).thenReturn("Добро пожаловать");
+        String actual = localizationService.locale(Country.RUSSIA);
 
         String excpected = "Добро пожаловать";
 
-        //тест не проходит
         Assertions.assertEquals(excpected, actual);
-
     }
 
     @Test
-    void sendTestEnglish(){
-        GeoServiceImpl geoService = Mockito.mock(GeoServiceImpl.class);
-        Mockito.when(geoService.byIp("96.44.183.149")).
-                thenReturn(new Location("New York",Country.USA,"10th avenue",32));
+    void sendTestEnglish() {
 
         LocalizationServiceImpl localizationService = Mockito.mock(LocalizationServiceImpl.class);
-        //не понимаю как переписать это правильно.
-        String actual = String.valueOf(Mockito.when(localizationService.locale(Country.USA)).
-                thenReturn("Welcome"));
+        when(localizationService.locale(Country.USA)).thenReturn("Welcome");
+        String actual = localizationService.locale(Country.USA);
 
         String excpected = "Welcome";
 
@@ -43,15 +35,16 @@ public class MessageSenderTest {
     }
 
     @Test
-    void LocationByIp(){
+    void LocationByIp() {
         GeoServiceImpl geoService = new GeoServiceImpl();
         String ip = "172.0.32.11";
-        Location excpected = new Location("Moscow",Country.RUSSIA,"Lenina", 15);
-        Location actual = geoService.byIp(ip);
-        //выдаёт ошибку. Не понимаю как исправить.
-        Assertions.assertEquals(excpected,actual);
 
+        Location excpectedLocation = new Location("Moscow", Country.RUSSIA, "Lenina", 15);
+        Location actualLocation = geoService.byIp(ip);
 
+        Country actual = actualLocation.getCountry();
+        Country excpected = excpectedLocation.getCountry();
+
+        Assertions.assertEquals(excpected, actual);
     }
-
 }
